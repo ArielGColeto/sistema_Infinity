@@ -2,6 +2,8 @@ let botoes = document.querySelectorAll(".menu-toggle");
 
 botoes.forEach((botao) =>
 {
+    botao.addEventListener("click", () =>
+    {    
     const submenuId = botao.getAttribute("aria-controls");
     const submenu = document.getElementById(submenuId);
 
@@ -10,5 +12,6 @@ botoes.forEach((botao) =>
     botao.setAttribute("aria-expanded", !expanded);
     submenu.setAttribute("aria-hidden", expanded);
 
-    submenu.classList.toggle("ativo");
+    submenu.style.display = expanded ? "none" : "block";
+    });
 });

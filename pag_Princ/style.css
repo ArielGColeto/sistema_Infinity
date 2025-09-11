@@ -93,17 +93,11 @@
   margin: 0;
   padding: 0 0 0 20px;
   display: none;
-  transition: all 0.3s;
 }
 
-.submenu.ativo
+.submenu li
 {
-  display: block;
-}
-
-submenu li
-{
-  padding: 8px 12px;
+  padding: 5px 0px;
   font-size: 13px;
   color: #555;
   cursor: pointer;
