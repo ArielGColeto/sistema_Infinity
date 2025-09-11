@@ -7,14 +7,21 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="sidebar">
-    <h2>Menu</h2>
-    <ul>
-      <li><a href="#">Dashboard</a></li>
-      <li><a href="#">Usuários</a></li>
-      <li><a href="#">Configurações</a></li>
-    </ul>
-  </div>
+  <aside>
+    <div class="sidebar">
+      <h2>Menu</h2>
+      <nav>
+        <ul class="menu">
+          <li class="menu-item">
+            <button class="menu-toggle" aria-expanded="false" aria-controls="submenu-id">Teste</button>
+              <ul id="submenu-id" class="submenu" aria-hidden="true">
+                <li> teste </li>
+              </ul>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </aside>
 
   <div class="main">
     <div class="topbar">
@@ -26,6 +33,8 @@
       <p>Conteúdo principal aqui</p>
     </div>
   </div>
+
+  <script src="logica.js"></script>
 </body>
 </html>
 
