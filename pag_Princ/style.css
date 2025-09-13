@@ -90,9 +90,16 @@
 .submenu
 {
   list-style: none;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s erase;
   margin: 0;
   padding: 0 0 0 20px;
   display: none;
+}
+.submenu.menu-toggle[aria-expanded="true"]::after
+{
+  max-height: 500pxx;
 }
 
 .submenu li

@@ -10,16 +10,23 @@
   <aside>
     <div class="sidebar">
       <h2>Menu</h2>
-      <nav>
-        <ul class="menu">
+        <div class="menu">
           <li class="menu-item">
-            <button class="menu-toggle" aria-expanded="false" aria-controls="submenu-id">Teste</button>
-              <ul id="submenu-id" class="submenu" aria-hidden="true">
-                <li> teste </li>
-              </ul>
+            <button >Teste</button>
+              <div class="submenu">
+                <button data-info="Conteúdo do Submenu 1A">Opção 1A</button>
+              </div>
+          </li>
+        </div>
+        
+        <ul class ="menu">
+          <li class="menu-item">
+            <button class="menu-toggle" aria-expanded="false" aria-controls="submenu-1">Teste 2</button>
+            <ul id="submenu-id" class="submenu" aria-hidden="true">
+                <button> teste </button>
+            </ul>
           </li>
         </ul>
-      </nav>
     </div>
   </aside>
 
