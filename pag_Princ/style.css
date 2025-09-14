@@ -67,19 +67,28 @@
   background: none;
   border: none;
   text-align: left;
-  padding: 12px;
+  padding: 12px 12px;
   font-size: 14px;
   cursor: pointer;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
   color: #ffffff;
+  gap: 8px;
+}
+
+.menu-toggle i
+{
+  font-size: 16px; 
+  color: #fff;
+  margin: 0;     
 }
 
 .menu-toggle::after
 {
   content: "▸";
   transition: transform 0.3s;
+  margin-left: auto;
 }
 
 .menu-toggle[aria-expanded="true"]::after
@@ -87,32 +96,57 @@
   transform: rotate(90deg);
 }
 
-.submenu
+.submenu 
 {
   list-style: none;
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.3s erase;
   margin: 0;
-  padding: 0 0 0 20px;
+  padding-left: 20px;
   display: none;
 }
-.submenu.menu-toggle[aria-expanded="true"]::after
+
+.submenu li 
 {
-  max-height: 500pxx;
+  margin: 0;
 }
 
-.submenu li
+.submenu button 
 {
-  padding: 5px 0px;
-  font-size: 13px;
-  color: #555;
+  width: 100%;
+  background: none;
+  border: none;
+  font-size: 14px;
+  padding: 8px 12px;
   cursor: pointer;
+  color: #ddd;
+  transition: background 1s;
+  gap: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
 }
 
-.submenu li:hover
+.submenu button i 
 {
-  background: #f0f0f0;
+  color: #fff;       
+  margin: 0;  
+  font-size: 16px;
+  min-width: 16px;
+  display: flex;
+  justify-content: center;
+}
+
+
+.menu-toggle i 
+{
+  color: #fff;
+  font-size: 20px;
+  margin: 0;
+}
+
+
+
+.submenu button:hover {
+  background: rgba(255,255,255,0.1);
 }
 
 
