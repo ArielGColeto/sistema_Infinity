@@ -28,7 +28,7 @@ h2 {
 form {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px; /* espaçamento entre campos */
+    gap: 20px;
     max-width: 1000px;
     margin: 20px auto;
     padding: 20px;
@@ -37,10 +37,34 @@ form {
     box-shadow: 0 1px 4px rgba(0,0,0,0.1);
 }
 
-/* Cada grupo (label + input) */
+.form-row {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+}
+
 .form-group {
+    flex: 1;
     display: flex;
     flex-direction: column;
+}
+
+
+.form-group.full {
+    flex: 100%;
+}
+
+.form-group.full input {
+    width: 313%;
+}
+.form-group input, 
+.form-group select {
+    width: 103%;
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 16px;
 }
 
 /* Labels */
@@ -56,7 +80,7 @@ input[type="text"], input[type="number"], input[type="email"] {
     width: 100%;
     padding: 10px 12px;
     border: 1px solid #cbd5e1;
-    border-radius: 4px;
+    border-radius: 7px;
     font-size: 0.95em;
     box-sizing: border-box;
     transition: border-color 0.3s, box-shadow 0.3s;
@@ -80,4 +104,29 @@ input:focus {
     form {
         grid-template-columns: 1fr; /* 1 coluna em telas pequenas */
     }
+}
+
+
+.form-row.botoes {
+  display: flex !important;
+  justify-content: flex-end; /* botão vai pra direita */
+  align-items: center;       /* centraliza só verticalmente */
+}
+
+/* Estilo só do botão */
+button.btn {
+  background-color: #1d1d2e; /* cor do seu sistema */
+  color: #fff;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  width: auto; /* 🔑 não deixa esticar */
+  height: auto; /* 🔑 não deixa esticar */
+  transition: background 0.3s ease;
+}
+
+button.btn:hover {
+  background-color: #2a2a40;
 }

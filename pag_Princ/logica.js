@@ -26,6 +26,32 @@ toggles.forEach(toggle => {
   });
 });
 
+let animando = false;
+
 function abrirSubmenu(url) {
-            document.getElementById('submenu-frame').src = url;
-        }
+    const iframe = document.getElementById('submenu-frame');
+
+    if (animando) return; // evita cliques múltiplos enquanto anima
+
+    animando = true;
+
+    // Se já tiver animação, faz fade-out
+    iframe.classList.remove('ativo');
+
+    // Força reflow para reiniciar animação
+    void iframe.offsetWidth;
+
+    // Pequeno delay para a tela antiga sumir suavemente
+    setTimeout(() => {
+        // Reseta src mesmo que seja a mesma URL
+        iframe.src = url;
+
+        // Quando terminar de carregar, faz fade-in
+        iframe.onload = () => {
+            setTimeout(() => {
+                iframe.classList.add('ativo');
+                animando = false; // libera novos cliques
+            }, 50);
+        };
+    }, 200); // tempo de fade-out
+}

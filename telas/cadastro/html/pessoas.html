@@ -11,7 +11,13 @@
         <div class="form-row">
             <div class="form-group">
                 <label for="tipo">Tipo:</label>
-                <input type="text" id="tipo" name="tipo" required>
+                <select id="tipo" name="tipo">
+                    <option value="">Selecione...</option>
+                    <option value="fisica">Pessoa Física</option>
+                    <option value="juridica">Pessoa Jurídica</option>
+                    <option value="exterior">Exterior</option>
+                    <option value="outro">Outro</option>
+                </select>   
             </div>
             <div class="form-group">
                 <label for="situacao">Situação:</label>
@@ -22,7 +28,7 @@
         <div class="form-row">
             <div class="form-group">
                 <label for="cnpf">CPF ou CNPJ:</label>
-                <input type="text" id="cnpf" name="cnpf" required>
+                <input type="text" id="cnpf" maxlength="18" name="cnpf" required>
             </div>
             <div class="form-group">
                 <label for="rg">RG:</label>
@@ -32,23 +38,8 @@
 
         <div class="form-row">
             <div class="form-group">
-                <label for="razao">Razão Social:</label>
-                <input type="text" id="razao" name="razao" required>
-            </div>
-            <div class="form-group">
-                <label for="nm_fant">Nome Fantasia:</label>
-                <input type="text" id="nm_fant" name="nm_fant" required>
-            </div>
-        </div>
-
-        <div class="form-row">
-            <div class="form-group">
-                <label for="fone">Fone:</label>
-                <input type="text" id="fone" name="fone" required>
-            </div>
-            <div class="form-group">
                 <label for="email">E-mail:</label>
-                <input type="text" id="email" name="email" required>
+                <input type="text" id="email" name="email" required placeholder="example@gmail.com">
             </div>
         </div>
 
@@ -76,8 +67,23 @@
 
         <div class="form-row">
             <div class="form-group">
+                <label for="fone">Fone:</label>
+                <input type="text" id="fone" name="fone" required placeholder="(xx)xxxxxxxxx">
+            </div>
+            <div class="form-group">
                 <label for="cep">CEP:</label>
-                <input type="text" id="cep" name="cep" required>
+                <input type="text" id="cep" name="cep" required placeholder="xxxxx-xxx">
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group full">
+                <label for="razao">Razão Social:</label>
+                <input type="text" id="razao" name="razao" required>
+            </div>
+            <div class="form-group full">
+                <label for="nm_fant">Nome Fantasia:</label>
+                <input type="text" id="nm_fant" name="nm_fant" required>
             </div>
         </div>
     </form>
