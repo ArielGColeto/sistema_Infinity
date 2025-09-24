@@ -55,3 +55,21 @@ function abrirSubmenu(url) {
         };
     }, 200); // tempo de fade-out
 }
+
+
+const iframe = document.getElementById("submenu-frame");
+  const logo = document.querySelector(".background-logo");
+
+  function toggleLogo() {
+    if (!iframe.src || iframe.src.trim() === "") {
+      logo.style.display = "block";  // mostra o logo
+    } else {
+      logo.style.display = "none";   // esconde o logo
+    }
+  }
+
+  // Checa sempre que o iframe mudar
+  iframe.addEventListener("load", toggleLogo);
+
+  // Chama logo de cara
+  toggleLogo();
