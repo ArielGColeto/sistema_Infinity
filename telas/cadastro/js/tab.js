@@ -1,123 +1,123 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const form = document.getElementById("form-pessoa"); // ou "form-cidade"
-    const tabela = document.getElementById("tabela-dados"); // tbody
-    const btnIncluir = document.getElementById("btnIncluir");
-    const secForm = document.getElementById("formulario");
-    const secLista = document.getElementById("lista");
-    const btnCancelar = document.getElementById("btn-cancelar");
-    const thead = document.querySelector(".crud thead");
 
-    let colunas = []; // colunas existentes
+  const form = document.getElementById("form");
+  const tabela = document.getElementById("tabela-dados");
+  const btnIncluir = document.getElementById("btnIncluir");
+  const secForm = document.getElementById("formulario");
+  const secLista = document.getElementById("lista");
+  const btnCancelar = document.getElementById("btn-cancelar");
+  const thead = document.querySelector(".crud thead");
 
-    // Cria cabeçalho inicial se houver título default
-    if (thead.children.length === 0) {
-        const trHead = document.createElement("tr");
-        thead.appendChild(trHead);
+  let colunas = [];
+
+  // Abrir formulário
+  btnIncluir.addEventListener("click", () => {
+    secForm.classList.add("ativo");
+    secLista.classList.remove("ativo");
+  });
+
+  // Cancelar
+  btnCancelar.addEventListener("click", (e) => {
+    e.preventDefault();
+    secForm.classList.remove("ativo");
+    secLista.classList.add("ativo");
+    form.reset();
+  });
+
+  // Cria cabeçalho da tabela apenas com campos obrigatórios
+  function criarCabecalho() {
+    thead.innerHTML = "";
+    colunas = [];
+
+    const tr = document.createElement("tr");
+
+    form.querySelectorAll("input[required], select[required]").forEach(el => {
+      const id = el.id;
+      colunas.push(id);
+      const th = document.createElement("th");
+      const label = form.querySelector(`label[for='${id}']`);
+      th.textContent = label ? label.innerText : id;
+      tr.appendChild(th);
+    });
+
+    const thAcoes = document.createElement("th");
+    thAcoes.textContent = "Ações";
+    tr.appendChild(thAcoes);
+
+    thead.appendChild(tr);
+  }
+
+  // Adiciona linha na tabela apenas com campos obrigatórios
+  function adicionarLinha(dados, editandoRow = null) {
+    const tr = editandoRow || document.createElement("tr");
+
+    colunas.forEach(col => {
+      let td;
+      if (editandoRow) {
+        td = tr.querySelector(`td[data-col="${col}"]`);
+      } else {
+        td = document.createElement("td");
+        td.setAttribute("data-col", col);
+      }
+      td.textContent = dados[col] || "";
+      if (!editandoRow) tr.appendChild(td);
+    });
+
+    if (!editandoRow) {
+      const tdAcoes = document.createElement("td");
+      tdAcoes.innerHTML = `
+        <button class="btn-editar"><i class="fa fa-edit"></i></button>
+        <button class="btn-excluir"><i class="fa fa-trash"></i></button>
+      `;
+      tr.appendChild(tdAcoes);
+      tabela.appendChild(tr);
     }
-    const trHead = thead.querySelector("tr");
+  }
 
-    // Abre formulário
-    btnIncluir.addEventListener("click", () => { 
-        secForm.classList.add("ativo");
-        secLista.classList.remove("ativo");
+  // Submissão do formulário
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const dados = {};
+    form.querySelectorAll("input[required], select[required]").forEach(el => {
+      dados[el.id] = el.value;
     });
 
-    // Cancela
-    btnCancelar.addEventListener("click", (e) => {
-        e.preventDefault();
-        secForm.classList.remove("ativo");
-        secLista.classList.add("ativo");
-        form.reset();
-    });
+    // Se ainda não criou cabeçalho, cria
+    if (thead.innerHTML.trim() === "") criarCabecalho();
 
-    // Submete formulário
-    form.addEventListener("submit", (e) => {
-        e.preventDefault();
+    // Verifica se estamos editando
+    const editandoRow = tabela.querySelector("tr[data-editando='true']");
+    adicionarLinha(dados, editandoRow);
 
-        const campos = Array.from(form.elements)
-            .filter(el => el.tagName === "INPUT" || el.tagName === "SELECT")
-            .filter(el => el.value.trim() !== "");
+    if (editandoRow) editandoRow.removeAttribute("data-editando");
 
-        const dados = {};
-        campos.forEach(campo => {
-            const nome = campo.name || campo.id;
-            dados[nome] = campo.value;
-        });
+    secForm.classList.remove("ativo");
+    secLista.classList.add("ativo");
+    form.reset();
+  });
 
-        // Cria colunas novas
-        Object.keys(dados).forEach(campo => {
-            if (!colunas.includes(campo)) {
-                colunas.push(campo);
-                const th = document.createElement("th");
-                th.textContent = campo.toUpperCase();
-                trHead.appendChild(th);
+  // Editar / Excluir
+  tabela.addEventListener("click", (e) => {
+    const btn = e.target.closest("button");
+    if (!btn) return;
 
-                // Adiciona td vazia em linhas existentes
-                tabela.querySelectorAll("tr").forEach(linha => {
-                    const td = document.createElement("td");
-                    td.textContent = "";
-                    linha.appendChild(td);
-                });
-            }
-        });
+    const row = btn.closest("tr");
 
-        // Cria nova linha
-        const tr = document.createElement("tr");
-        colunas.forEach(col => {
-            const td = document.createElement("td");
-            td.textContent = dados[col] || "";
-            tr.appendChild(td);
-        });
+    if (btn.classList.contains("btn-excluir")) {
+      if (confirm("Deseja excluir este registro?")) row.remove();
+    }
 
-        // Coluna de ações
-        const tdAcoes = document.createElement("td");
-        tdAcoes.innerHTML = `
-            <button class="btn-editar"><i class="fa fa-edit"></i></button>
-            <button class="btn-excluir"><i class="fa fa-trash"></i></button>
-        `;
-        tr.appendChild(tdAcoes);
+    if (btn.classList.contains("btn-editar")) {
+      colunas.forEach(col => {
+        const input = document.getElementById(col);
+        const td = row.querySelector(`td[data-col="${col}"]`);
+        if (input && td) input.value = td.textContent;
+      });
+      row.setAttribute("data-editando", "true");
+      secForm.classList.add("ativo");
+      secLista.classList.remove("ativo");
+    }
+  });
 
-        tabela.appendChild(tr);
-
-        // Fecha formulário
-        secForm.classList.remove("ativo");
-        secLista.classList.add("ativo");
-        form.reset();
-    });
-
-    // Editar / Excluir
-    tabela.addEventListener("click", (event) => {
-        const btn = event.target.closest("button");
-        if (!btn) return;
-        const row = btn.closest("tr");
-
-        if (btn.classList.contains("btn-excluir")) {
-            if (confirm("Tem certeza que deseja excluir este registro?")) row.remove();
-        }
-
-        if (btn.classList.contains("btn-editar")) {
-            const cells = row.querySelectorAll("td");
-            colunas.forEach((col, idx) => {
-                const campo = document.getElementById(col);
-                if (campo) campo.value = cells[idx].innerText;
-            });
-            secForm.classList.add("ativo");
-            secLista.classList.remove("ativo");
-            row.setAttribute("data-editando", "true");
-        }
-    });
-
-    // Atualiza linha editada
-    form.addEventListener("submit", (e) => {
-        e.preventDefault();
-        const editando = document.querySelector("tr[data-editando='true']");
-        if (editando) {
-            const cells = editando.querySelectorAll("td");
-            colunas.forEach((col, idx) => {
-                const campo = document.getElementById(col);
-                if (campo) cells[idx].innerText = campo.value;
-            });
-            editando.removeAttribute("data-editando");
-        }
-    });
 });

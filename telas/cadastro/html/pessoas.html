@@ -1,117 +1,133 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/pess.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../css/pess.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <title>Cadastro de Pessoas</title>
 </head>
 <body>
-    <div class="page-wrapper">
+  <div class="page-wrapper">
 
+    <!-- Cabeçalho -->
+    <div class="header-container">
+      <div class="header-left">
+        <h1>Pessoas</h1>
+        <span>Aqui você pode gerenciar as pessoas cadastradas</span>
+      </div>
+      <div class="header-right">
+        <button id="btnIncluir" class="cad-novo">+ Incluir novo</button>
+      </div>
+    </div>
+
+    <!-- Lista de pessoas -->
     <section id="lista" class="lista-pessoas transicao ativo">
-        <table class="crud" aria-describedby="tabela-pessoas">
-            <caption>
-                <h2>Pessoas</h2> 
-                <button class="cad-novo" id="btnIncluir">+ Incluir novo</button>
-                <p class="descricao"><h5>Aqui você pode gerenciar as pessoas cadastradas</h5></p>
-                
-            </caption>
-            <thead></thead>
-            <tbody id="tabela-dados">
-            </tbody>
-        </table>
+      <table class="crud">
+        <thead>
+        </thead>
+        <tbody id="tabela-dados"></tbody>
+      </table>
     </section>  
-    <section class ="formulario-pessoa transicao" id="formulario">
-        <form id="form-pessoa">
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="tipo">Tipo:</label>
-                    <select id="tipo" name="tipo">
-                        <option value="">Selecione...</option>
-                        <option value="fisica">Pessoa Física</option>
-                        <option value="juridica">Pessoa Jurídica</option>
-                        <option value="exterior">Exterior</option>
-                        <option value="outro">Outro</option>
-                    </select>   
-                </div>
-                <div class="form-group">
-                    <label for="situacao">Situação:</label>
-                    <input type="text" id="situacao" name="situacao" required>
-                </div>
-            </div>
 
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="cnpf">CPF ou CNPJ:</label>
-                    <input type="text" id="cnpf" maxlength="18" name="cnpf" required>
-                </div>
-                <div class="form-group">
-                    <label for="rg">RG:</label>
-                    <input type="text" id="rg" name="rg" required>
-                </div>
-            </div>
+    <!-- Formulário -->
+    <section class="formulario-pessoa transicao" id="formulario">
+      <form id="form">
 
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="email">E-mail:</label>
-                    <input type="text" id="email" name="email" required placeholder="example@gmail.com">
-                </div>
-            </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="tipo">Tipo:</label>
+            <select id="tipo" name="tipo">
+              <option value="">Selecione...</option>
+              <option value="fisica">Pessoa Física</option>
+              <option value="juridica">Pessoa Jurídica</option>
+              <option value="exterior">Exterior</option>
+              <option value="outro">Outro</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="situacao">Situação:</label>
+            <input type="text" id="situacao" name="situacao">
+          </div>
+        </div>
 
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="endereco">Endereço:</label>
-                    <input type="text" id="endereco" name="endereco" required>
-                </div>
-                <div class="form-group">
-                    <label for="nmr">Número:</label>
-                    <input type="text" id="nmr" name="nmr" required>
-                </div>
-            </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="cnpf">CPF ou CNPJ:</label>
+            <input type="text" id="cnpf" name="cnpf" maxlength="18" required>
+          </div>
+          <div class="form-group">
+            <label for="rg">RG:</label>
+            <input type="text" id="rg" name="rg">
+          </div>
+        </div>
 
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="complemento">Complemento:</label>
-                    <input type="text" id="complemento" name="complemento" required>
-                </div>
-                <div class="form-group">
-                    <label for="bairro">Bairro:</label>
-                    <input type="text" id="bairro" name="bairro" required>
-                </div>
-            </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="email">E-mail:</label>
+            <input type="text" id="email" name="email" placeholder="example@gmail.com">
+          </div>
+        </div>
 
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="fone">Fone:</label>
-                    <input type="text" id="fone" name="fone" required placeholder="(xx)xxxxxxxxx">
-                </div>
-                <div class="form-group">
-                    <label for="cep">CEP:</label>
-                    <input type="text" id="cep" name="cep" required placeholder="xxxxx-xxx">
-                </div>
-            </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="endereco">Endereço:</label>
+            <input type="text" id="endereco" name="endereco">
+          </div>
+          <div class="form-group">
+            <label for="nmr">Número:</label>
+            <input type="text" id="nmr" name="nmr">
+          </div>
+        </div>
 
-            <div class="form-row full">
-                <div class="form-group ">
-                    <label for="razao">Razão Social:</label>
-                    <input type="text" id="razao" name="razao" required>
-                </div>
-            </div>
-            <div class="form-row full">
-                <div class="form-group ">
-                    <label for="nm_fant">Nome Fantasia:</label>
-                    <input type="text" id="nm_fant" name="nm_fant" required>
-                </div>
-            </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="complemento">Complemento:</label>
+            <input type="text" id="complemento" name="complemento">
+          </div>
+          <div class="form-group">
+            <label for="bairro">Bairro:</label>
+            <input type="text" id="bairro" name="bairro">
+          </div>
+        </div>
 
-            <div class="botoes-container">
-                <button type="submit" class="btn-cadastrar">Cadastrar</button>
-                <button type="reset" class="btn-excluir" id="btn-cancelar"><span class= "x">X</span> Cancelar</button>
-            </div>
-        </form>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="fone">Fone:</label>
+            <input type="text" id="fone" name="fone" required placeholder="(xx)xxxxxxxxx">
+          </div>
+          <div class="form-group">
+            <label for="cep">CEP:</label>
+            <input type="text" id="cep" name="cep" required placeholder="xxxxx-xxx">
+          </div>
+        </div>
+
+        <div class="form-row full">
+          <div class="form-group">
+            <label for="razao">Razão Social:</label>
+            <input type="text" id="razao" name="razao">
+          </div>
+        </div>
+
+        <div class="form-row full">
+          <div class="form-group">
+            <label for="nm_fant">Nome Fantasia:</label>
+            <input type="text" id="nm_fant" name="nm_fant" required>
+          </div>
+        </div>
+
+        <div class="botoes-container">
+          <button type="submit" class="btn-cadastrar">Cadastrar</button>
+          <button type="reset" class="btn-excluir" id="btn-cancelar">
+            <span class="x">X</span> Cancelar
+          </button>
+        </div>
+
+      </form>
     </section> 
-</div>
-<script src="../js/tab.js"></script> 
+
+  </div>
+
+  <script src="../js/tab.js"></script>
 </body>
 </html>
