@@ -24,30 +24,31 @@ html, body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 12px;
+  margin-bottom: 16px;
 }
 .header-left h1 {
   font-size: 1.6rem;
   margin: 4px 0;
+  color: #1E1E2F;
 }
 .header-left span {
   font-size: 0.9rem;
   color: #666;
 }
 .cad-novo {
-  background-color: #fff;
+  background: transparent;
   color: #1E1E2F;
   border: 2px solid #1E1E2F;
   border-radius: 6px;
   font-weight: bold;
-  font-size: 1rem;
+  font-size: 0.95rem;
   cursor: pointer;
-  padding: 6px 12px;
+  padding: 6px 14px;
+  transition: 0.2s;
 }
 .cad-novo:hover {
-  background-color: #f0f0f0;
-  color: #343454;
-  border-color: #343454;
+  background-color: #1E1E2F;
+  color: #fff;
 }
 
 /* Lista */
@@ -96,7 +97,7 @@ html, body {
   left: 50%;
   transform: translate(-50%, 20px);
   width: 95%;
-  max-width: 1000px;
+  max-width: 900px;
   max-height: 90vh;
   overflow-y: auto;
   z-index: 10;
@@ -107,46 +108,83 @@ html, body {
   transform: translate(-50%, 0);
 }
 form {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
 }
-.form-row 
-{ 
-    display: flex; 
-    flex-wrap: wrap; 
-    gap: 16px; 
+.form-row { 
+  display: flex; 
+  flex-wrap: nowrap; 
+  gap: 16px; 
 }
-.form-row.full
-{ 
-    flex-direction: column; 
+.form-row.full { 
+  display: flex;
+  flex-direction: column; 
 }
 .form-group { 
-    flex: 1; 
-    min-width: 180px; 
-    display: flex; 
-    flex-direction: column; 
-    gap: 6px; 
+  flex: 1; 
+  min-width: 180px; 
+  display: flex; 
+  flex-direction: column; 
+  gap: 6px; 
+}
+
+.form-group.codigo
+{
+  flex: 1 1 100%;
+  max-width: 300px;
+}
+
+.form-row.grid-dupla 
+{
+  display: grid;
+  grid-template-columns: 2fr 1fr; /* 2 partes para descrição, 1 parte para UF */
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.form-group.descricao
+{
+  flex: 2;
+  min-width: 200px;
+}
+
+.form-group.descricao input {
+  width: 100%;
+  min-width: 150px;
+}
+
+.form.group.uf
+{
+  flex: 1;
+  min-width: 60px;
+  min-width: 100px;
+}
+
+.form-group.uf input {
+  width: 100%;
+  max-width: 100px;
 }
 
 
 label { 
-    font-size: 0.95rem; 
-    font-weight: 500; 
-    color: #555; 
+  font-size: 0.9rem; 
+  font-weight: 500; 
+  color: #444; 
 }
-
 input, select {
   width: 100%;
-  padding: 10px 14px;
-  border-radius: 8px;
-  border: 1px solid #ddd;
+  padding: 10px 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
   background-color: #fafafa;
+  transition: 0.2s;
 }
 input:focus, select:focus {
   border-color: #1E1E2F;
-  box-shadow: 0 4px 12px rgba(30,30,47,0.1);
+  box-shadow: 0 0 6px rgba(30,30,47,0.2);
   background-color: #fff;
+  outline: none;
 }
 
 /* Botões formulário */
@@ -158,33 +196,39 @@ input:focus, select:focus {
 .btn-cadastrar {
   background-color: #1E1E2F;
   color: #fff;
+  border: none;
   border-radius: 6px;
-  padding: 10px 16px;
+  padding: 10px 18px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: 0.2s;
 }
-.btn-cadastrar:hover 
-{
-     background-color: #343454; 
+.btn-cadastrar:hover {
+  background-color: #343454; 
 }
 .btn-excluir {
   background-color: #ff6b6b;
   color: #fff;
+  border: none;
   border-radius: 6px;
   padding: 6px 10px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: 0.2s;
 }
 .btn-excluir:hover { 
-    background-color: #e55050; 
+  background-color: #e55050; 
 }
 .btn-editar {
-    background-color: #007bff; /* azul */
-    color: #fff;
-    border: none;
-    padding: 6px 10px;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: 0.2s;
+  background: transparent;
+  color: #1E1E2F;
+  border: 2px solid #1E1E2F;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.2s;
 }
-
 .btn-editar:hover {
-    background-color: #0056b3; /* azul mais escuro */
+  background-color: #1E1E2F;
+  color: #fff;
 }
-

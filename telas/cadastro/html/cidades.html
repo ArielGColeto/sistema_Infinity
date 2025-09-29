@@ -1,34 +1,69 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/cid.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../css/pess.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <title>Cadastro de Pessoas</title>
 </head>
 <body>
-    <h2>Cadastro de cidades</h2>
-    <form>
+  <div class="page-wrapper">
+
+    <!-- Cabeçalho -->
+    <div class="header-container">
+      <div class="header-left">
+        <h1>Cidades</h1>
+        <span>Aqui você pode gerenciar as cidades cadastradas</span>
+      </div>
+      <div class="header-right">
+        <button id="btnIncluir" class="cad-novo">+ Incluir novo</button>
+      </div>
+    </div>
+
+    <!-- Lista -->
+    <section id="lista" class="lista-pessoas transicao ativo">
+      <table class="crud">
+        <thead></thead>
+        <tbody id="tabela-dados"></tbody>
+      </table>
+    </section>  
+
+    <!-- Formulário -->
+    <section class="formulario-pessoa transicao" id="formulario">
+      <form id="form">       
+
+        <!-- Linha Código -->
         <div class="form-row full">
-            <div class="form-group cod">
-                <label for="cod">Codigo: </label>
-                <input type="text" id="cod" name="cod" required>
-            </div>
-        </div>
-        <div class="form-row linha2">   
-            <div class="form-group desc">
-                <label for="cep">Descrição:</label>
-                <input type="text" id="cep" name="cep" required>
-            </div>
-            <div class="form-group uf">
-                <label for="uf">Uf: </label>
-                <input type="text" id="uf" name="uf" required>
-            </div>
+          <div class="form-group codigo">
+            <label for="razao">Código:</label>
+            <input type="text" id="razao" name="razao" required>
+          </div>
         </div>
 
-        <div class="botoes-container">
-            <button type="submit" class="btn-cadastrar">Cadastrar</button>
-            <button type="reset" class="btn-excluir"><span class= "x">X</span> Excluir</button>
+        <!-- Linha Descrição + UF -->
+        <div class="form-row grid-dupla">
+          <div class="form-group descricao">
+            <label for="fantasia">Descrição:</label>
+            <input type="text" id="fantasia" name="fantasia">
+          </div>
+          <div class="form-group uf">
+            <label for="endereco">UF:</label>
+            <input type="text" id="endereco" name="endereco" required>
+          </div>
         </div>
-    </form>
+        
+        <div class="botoes-container">
+          <button type="submit" class="btn-cadastrar">Cadastrar</button>
+          <button type="reset" class="btn-excluir" id="btn-cancelar">
+            <i class="fa fa-times"></i> Cancelar
+          </button>
+        </div>
+      </form>
+    </section> 
+
+  </div>
+
+  <script src="../js/tab.js"></script>
 </body>
 </html>
