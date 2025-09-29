@@ -1,0 +1,234 @@
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+html, body {
+  width: 100%;
+  min-height: 100%;
+  background-color: #f5f6fa;
+  color: #333;
+  overflow-x: hidden;
+}
+.page-wrapper {
+  max-width: 1000px;
+  margin: 20px auto;
+  padding: 0 16px;
+  position: relative;
+}
+
+/* Cabeçalho */
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+.header-left h1 {
+  font-size: 1.6rem;
+  margin: 4px 0;
+  color: #1E1E2F;
+}
+.header-left span {
+  font-size: 0.9rem;
+  color: #666;
+}
+.cad-novo {
+  background: transparent;
+  color: #1E1E2F;
+  border: 2px solid #1E1E2F;
+  border-radius: 6px;
+  font-weight: bold;
+  font-size: 0.95rem;
+  cursor: pointer;
+  padding: 6px 14px;
+  transition: 0.2s;
+}
+.cad-novo:hover {
+  background-color: #1E1E2F;
+  color: #fff;
+}
+
+/* Lista */
+.lista-pessoas {
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+.lista-pessoas.ativo { opacity: 1; pointer-events: auto; }
+.lista-pessoas.inativo { opacity: 0; pointer-events: none; }
+
+/* Tabela */
+.crud {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 5px 0 30px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.05);
+}
+.crud thead th {
+  text-align: left;
+  padding: 12px 14px;
+  font-weight: 600;
+  color: #fff;
+  background-color: #1E1E2F;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+.crud td {
+  padding: 12px 14px;
+  border-bottom: 1px solid #eee;
+  word-wrap: break-word;
+}
+
+/* Formulário */
+.formulario-pessoa {
+  background-color: #fff;
+  padding: 18px;
+  border-radius: 8px;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.05);  
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.4s ease;
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translate(-50%, 20px);
+  width: 95%;
+  max-width: 900px;
+  max-height: 90vh;
+  overflow-y: auto;
+  z-index: 10;
+}
+.formulario-pessoa.ativo {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate(-50%, 0);
+}
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.form-row { 
+  display: flex; 
+  flex-wrap: nowrap; 
+  gap: 16px; 
+}
+.form-row.full { 
+  display: flex;
+  flex-direction: column; 
+}
+.form-group { 
+  flex: 1; 
+  min-width: 180px; 
+  display: flex; 
+  flex-direction: column; 
+  gap: 6px; 
+}
+
+.form-group.codigo
+{
+  flex: 1 1 100%;
+  max-width: 300px;
+}
+
+.form-row.grid-dupla 
+{
+  display: grid;
+  grid-template-columns: 2fr 1fr; /* 2 partes para descrição, 1 parte para UF */
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.form-group.descricao
+{
+  flex: 2;
+  min-width: 200px;
+}
+
+.form-group.descricao input {
+  width: 100%;
+  min-width: 150px;
+}
+
+.form.group.uf
+{
+  flex: 1;
+  min-width: 60px;
+  min-width: 100px;
+}
+
+.form-group.uf input {
+  width: 100%;
+  max-width: 100px;
+}
+
+
+label { 
+  font-size: 0.9rem; 
+  font-weight: 500; 
+  color: #444; 
+}
+input, select {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  background-color: #fafafa;
+  transition: 0.2s;
+}
+input:focus, select:focus {
+  border-color: #1E1E2F;
+  box-shadow: 0 0 6px rgba(30,30,47,0.2);
+  background-color: #fff;
+  outline: none;
+}
+
+/* Botões formulário */
+.botoes-container {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+}
+.btn-cadastrar {
+  background-color: #1E1E2F;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 18px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.btn-cadastrar:hover {
+  background-color: #343454; 
+}
+.btn-excluir {
+  background-color: #ff6b6b;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.btn-excluir:hover { 
+  background-color: #e55050; 
+}
+.btn-editar {
+  background: transparent;
+  color: #1E1E2F;
+  border: 2px solid #1E1E2F;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.btn-editar:hover {
+  background-color: #1E1E2F;
+  color: #fff;
+}
