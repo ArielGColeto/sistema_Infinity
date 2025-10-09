@@ -1,17 +1,16 @@
 package com.Infinity.cadastro.model;
 
 import jakarta.annotation.Generated;
+import jakarta.persistence.*;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.ConditionalOnIssuerLocationJwtDecoder;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 
 @Entity
+@Table(name = "pessoas")
 public class pessoa {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    int cd_pessoas;
     String razao;
     String fantasia;
     int cpf;
@@ -101,5 +100,13 @@ public class pessoa {
 
     public void setTelefone(int telefone) {
         this.telefone = telefone;
+    }
+
+    public int getCd_pessoas() {
+        return cd_pessoas;
+    }
+
+    public void setCd_pessoas(int cd_pessoas) {
+        this.cd_pessoas = cd_pessoas;
     }
 }

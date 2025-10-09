@@ -6,37 +6,23 @@ document.addEventListener("DOMContentLoaded", () => {
   const secForm = document.getElementById("formulario");
   const secLista = document.getElementById("lista");
   const btnCancelar = document.getElementById("btn-cancelar");
-  const thead = document.querySelector(".crud thead");
+  const thead = tabela.querySelector("thead");
+  const tbody = tabela.querySelector("tbody");
 
+  const entity = tabela.dataset.entity; // "pessoas", "cidades", etc.
   let colunas = [];
 
-  // Abrir formulário
-  btnIncluir.addEventListener("click", () => {
-    secForm.classList.add("ativo");
-    secLista.classList.remove("ativo");
-  });
-
-  // Cancelar
-  btnCancelar.addEventListener("click", (e) => {
-    e.preventDefault();
-    secForm.classList.remove("ativo");
-    secLista.classList.add("ativo");
-    form.reset();
-  });
-
-  // Cria cabeçalho da tabela apenas com campos obrigatórios
+  // Criar cabeçalho dinamicamente
   function criarCabecalho() {
     thead.innerHTML = "";
     colunas = [];
-
     const tr = document.createElement("tr");
 
-    form.querySelectorAll("input[required], select[required]").forEach(el => {
-      const id = el.id;
-      colunas.push(id);
+    form.querySelectorAll("input[required], select[required], textarea").forEach(el => {
+      colunas.push(el.id);
       const th = document.createElement("th");
-      const label = form.querySelector(`label[for='${id}']`);
-      th.textContent = label ? label.innerText : id;
+      const label = form.querySelector(`label[for='${el.id}']`);
+      th.textContent = label ? label.innerText : el.id;
       tr.appendChild(th);
     });
 
@@ -47,65 +33,116 @@ document.addEventListener("DOMContentLoaded", () => {
     thead.appendChild(tr);
   }
 
-  // Adiciona linha na tabela apenas com campos obrigatórios
+  // Adicionar ou atualizar linha na tabela
   function adicionarLinha(dados, editandoRow = null) {
     const tr = editandoRow || document.createElement("tr");
 
     colunas.forEach(col => {
-      let td;
-      if (editandoRow) {
-        td = tr.querySelector(`td[data-col="${col}"]`);
-      } else {
-        td = document.createElement("td");
-        td.setAttribute("data-col", col);
-      }
+      let td = editandoRow ? tr.querySelector(`td[data-col="${col}"]`) : document.createElement("td");
+      td.setAttribute("data-col", col);
       td.textContent = dados[col] || "";
       if (!editandoRow) tr.appendChild(td);
     });
 
     if (!editandoRow) {
+      tr.dataset.id = dados.id; // ID retornado do backend
       const tdAcoes = document.createElement("td");
       tdAcoes.innerHTML = `
-        <button class="btn-editar"><i class="fa fa-edit"></i></button>
-        <button class="btn-excluir"><i class="fa fa-trash"></i></button>
+        <button class="btn-editar">Editar</button>
+        <button class="btn-excluir">Excluir</button>
       `;
       tr.appendChild(tdAcoes);
-      tabela.appendChild(tr);
+      tbody.appendChild(tr);
     }
   }
 
-  // Submissão do formulário
-  form.addEventListener("submit", (e) => {
+  // Carregar dados do backend
+  function carregarTabela() {
+    fetch(`/${entity}`)
+      .then(res => res.json())
+      .then(dados => {
+        tbody.innerHTML = ""; // limpa tabela
+        if (dados.length > 0 && thead.innerHTML.trim() === "") criarCabecalho();
+        dados.forEach(item => adicionarLinha(item));
+      })
+      .catch(err => console.error(err));
+  }
+
+  carregarTabela(); // carregar ao iniciar
+
+  // Abrir formulário
+  btnIncluir.addEventListener("click", () => {
+    secForm.classList.add("ativo");
+    secLista.classList.remove("ativo");
+    form.reset();
+  });
+
+  // Cancelar
+  btnCancelar.addEventListener("click", e => {
     e.preventDefault();
-
-    const dados = {};
-    form.querySelectorAll("input[required], select[required]").forEach(el => {
-      dados[el.id] = el.value;
-    });
-
-    // Se ainda não criou cabeçalho, cria
-    if (thead.innerHTML.trim() === "") criarCabecalho();
-
-    // Verifica se estamos editando
-    const editandoRow = tabela.querySelector("tr[data-editando='true']");
-    adicionarLinha(dados, editandoRow);
-
-    if (editandoRow) editandoRow.removeAttribute("data-editando");
-
     secForm.classList.remove("ativo");
     secLista.classList.add("ativo");
     form.reset();
   });
 
+  // Submeter formulário
+  form.addEventListener("submit", e => {
+    e.preventDefault();
+
+    const dados = {};
+    form.querySelectorAll("input, select, textarea").forEach(el => dados[el.id] = el.value);
+
+    const editandoRow = tbody.querySelector("tr[data-editando='true']");
+
+    if (editandoRow) {
+      // Editar registro
+      const id = editandoRow.dataset.id;
+      fetch(`/${entity}/${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(dados)
+      })
+      .then(res => res.json())
+      .then(atualizado => {
+        adicionarLinha(atualizado, editandoRow);
+        editandoRow.removeAttribute("data-editando");
+        form.reset();
+        secForm.classList.remove("ativo");
+        secLista.classList.add("ativo");
+      })
+      .catch(err => alert("Erro ao atualizar registro: " + err));
+    } else {
+      // Novo registro
+      fetch(`/${entity}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(dados)
+      })
+      .then(res => res.json())
+      .then(novoRegistro => {
+        if (thead.innerHTML.trim() === "") criarCabecalho();
+        adicionarLinha(novoRegistro);
+        form.reset();
+        secForm.classList.remove("ativo");
+        secLista.classList.add("ativo");
+      })
+      .catch(err => alert("Erro ao cadastrar registro: " + err));
+    }
+  });
+
   // Editar / Excluir
-  tabela.addEventListener("click", (e) => {
+  tbody.addEventListener("click", e => {
     const btn = e.target.closest("button");
     if (!btn) return;
-
     const row = btn.closest("tr");
 
     if (btn.classList.contains("btn-excluir")) {
-      if (confirm("Deseja excluir este registro?")) row.remove();
+      if (confirm("Deseja excluir este registro?")) {
+        const id = row.dataset.id;
+        fetch(`/${entity}/${id}`, { method: "DELETE" })
+          .then(() => row.remove())
+          .catch(err => alert("Erro ao excluir registro: " + err));
+      }
     }
 
     if (btn.classList.contains("btn-editar")) {
