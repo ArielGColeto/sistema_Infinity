@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="../css/pess.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <title>Cadastro de Pessoas</title>
+  <title>Cadastro de Cidades</title>
 </head>
 <body>
   <div class="page-wrapper">
@@ -21,7 +21,7 @@
       </div>
     </div>
 
-    <!-- Lista -->
+    <!-- Lista de registros -->
     <section id="lista" class="lista-pessoas transicao ativo" data-entity="cidades">
       <table class="crud">
         <thead></thead>
@@ -29,30 +29,39 @@
       </table>
     </section>  
 
-    <!-- Formulário -->
+    <!-- Formulário de cadastro/edição -->
     <section class="formulario-pessoa transicao" id="formulario">
       <form id="form">       
 
-        <!-- Linha Código -->
+        <!-- Código -->
         <div class="form-row full">
           <div class="form-group codigo">
-            <label for="razao">Código:</label>
-            <input type="text" id="razao" name="razao" required>
+            <label for="cd_cidade">Código:</label>
+            <input type="text" id="cd_cidade" name="cd_cidade" required>
           </div>
         </div>
 
-        <!-- Linha Descrição + UF -->
-        <div class="form-row grid-dupla">
+        <!-- Nome da Cidade -->
+        <div class="form-row full">
           <div class="form-group descricao">
-            <label for="fantasia">Descrição:</label>
-            <input type="text" id="fantasia" name="fantasia">
+            <label for="nm_cidade">Nome da Cidade:</label>
+            <input type="text" id="nm_cidade" name="nm_cidade" required>
           </div>
+        </div>
+
+        <!-- UF e Código do País -->
+        <div class="form-row grid-dupla">
           <div class="form-group uf">
-            <label for="endereco">UF:</label>
-            <input type="text" id="endereco" name="endereco" required>
+            <label for="uf">UF:</label>
+            <input type="text" id="uf" name="uf">
+          </div>
+          <div class="form-group pais">
+            <label for="cd_pais">Código do País:</label>
+            <input type="text" id="cd_pais" name="cd_pais">
           </div>
         </div>
         
+        <!-- Botões -->
         <div class="botoes-container">
           <button type="submit" class="btn-cadastrar">Cadastrar</button>
           <button type="reset" class="btn-excluir" id="btn-cancelar">
@@ -64,6 +73,7 @@
 
   </div>
 
+  <!-- JS do CRUD -->
   <script src="../js/tab.js"></script>
 </body>
 </html>

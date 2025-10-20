@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 
 @Entity
 @Table(name = "cidades")
-@CrossOrigin(origins = "*")
 public class cidade {
     @Id
     int cd_cidade;

@@ -19,7 +19,7 @@ public class pessoaController {
         this.pessoaRepo = pessoaRepo;
     }
 
-    @PostMapping("/salvar")
+    @PostMapping
     public pessoa salvar(@RequestBody pessoa pessoa)
     {
         return pessoaRepo.save(pessoa);

@@ -7,20 +7,19 @@ import org.springframework.boot.autoconfigure.security.oauth2.resource.Condition
 @Entity
 @Table(name = "pessoas")
 public class pessoa {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     int cd_pessoas;
     String razao;
     String fantasia;
-    int cpf;
+    String cpf;
     String endereco;
     String complemento;
     String bairro;
     String cidade;
-    int cep;
+    String cep;
     String email;
-    int telefone;
+    String telefone;
+    String tipo;
 
     public String getRazao() {
         return razao;
@@ -38,11 +37,11 @@ public class pessoa {
         this.fantasia = fantasia;
     }
 
-    public int getCpf() {
+    public String getCpf() {
         return cpf;
     }
 
-    public void setCpf(int cpf) {
+    public void setCpf(String cpf) {
         this.cpf = cpf;
     }
 
@@ -78,11 +77,11 @@ public class pessoa {
         this.cidade = cidade;
     }
 
-    public int getCep() {
+    public String getCep() {
         return cep;
     }
 
-    public void setCep(int cep) {
+    public void setCep(String cep) {
         this.cep = cep;
     }
 
@@ -94,11 +93,11 @@ public class pessoa {
         this.email = email;
     }
 
-    public int getTelefone() {
+    public String getTelefone() {
         return telefone;
     }
 
-    public void setTelefone(int telefone) {
+    public void setTelefone(String telefone) {
         this.telefone = telefone;
     }
 
@@ -108,5 +107,13 @@ public class pessoa {
 
     public void setCd_pessoas(int cd_pessoas) {
         this.cd_pessoas = cd_pessoas;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 }

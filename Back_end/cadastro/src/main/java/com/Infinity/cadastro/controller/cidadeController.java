@@ -37,4 +37,9 @@ public class cidadeController {
         return cidadeRepo.save(cidade);
     }
 
+    @DeleteMapping("/{id}")
+    public void deletar(@PathVariable Long id)
+    {
+        cidadeRepo.deleteById(id);
+    }
 }
